@@ -23,7 +23,7 @@ check_connection() {
 # Download saves from server
 pull_saves() {
     if check_connection; then
-        rsync -au "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/" "$LOCAL_PATH/"
+        rsync -au "$REMOTE_USER@$REMOTE_HOST:$REMOTE_SAVE_PATH/" "$LOCAL_SAVE_PATH/"
     else
         zenity --error --text="Unable to download save data. Server offline." --title="Sync Error"
     fi
@@ -32,7 +32,7 @@ pull_saves() {
 # Upload saves to server
 push_saves() {
     if check_connection; then
-        rsync -au "$LOCAL_PATH/" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+        rsync -au "$LOCAL_SAVE_PATH/" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_SAVE_PATH/"
     else
         zenity --error --text="Unable to upload save data. Server offline." --title="Sync Error"
     fi

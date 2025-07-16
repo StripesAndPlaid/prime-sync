@@ -1,5 +1,5 @@
 REMOTE_HOST=your.server.address
 REMOTE_USER=yourusername
 
-LOCAL_PATH=$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii/title/00010000/52334d45/data
-REMOTE_PATH=/home/$REMOTE_USER/metroid
+LOCAL_SAVE_PATH=$HOME/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii/title/00010000/52334d45/data
+REMOTE_SAVE_PATH=/home/$REMOTE_USER/metroid
