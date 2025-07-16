@@ -22,8 +22,8 @@ This setup is lightweight, portable, and free of third-party cloud storage depen
 ```
 prime-sync/
 ├── sync-save                # Main script
-├── sync-save.conf           # Your private config (not committed to Git)
-├── sync-save.conf.example   # Public-safe template for sharing
+├── sync-save.conf           # Your private config (create this file yourself)
+├── sync-save.conf.example   # Config template (copy this to sync-save.conf and edit)
 ├── primehack-wrapper        # Game launch script (used in Steam)
 ├── README.md
 ├── .gitignore
@@ -91,9 +91,9 @@ Or launch the game with save sync via the wrapper:
 1. Add `primehack-wrapper` to Steam or use Steam ROM Manager to generate a shortcut.
 2. Ensure the ROM path is passed as an argument (Steam ROM Manager handles this automatically).
 3. The wrapper script will:
-   - Pull save from the server
+   - Pull the save from the server
    - Launch PrimeHack (or another application if modified)
-   - Push the updated save after quitting
+   - Push the updated save back to the server after quitting
 
 ### Wrapper script contents:
 
@@ -110,11 +110,6 @@ Or launch the game with save sync via the wrapper:
 - The script uses `/dev/tcp/$REMOTE_HOST/22` to check if your SSH server is reachable.
 - `rsync` uses `--update` to avoid overwriting newer local or remote saves.
 - Errors are shown via `zenity` if syncing fails — tested in both Desktop and Game Mode on SteamOS.
-
-## 🔒 Security
-
-- Your personal `sync-save.conf` should **not** be committed to version control.
-- A `.gitignore` is included to protect your config by default.
 
 ## ✅ Requirements
 
