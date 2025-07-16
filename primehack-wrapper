@@ -1,0 +1,5 @@
+#!/bin/bash
+
+"$(dirname "$0")/sync-save" --pull
+/usr/bin/flatpak run io.github.shiiion.primehack -b -e "$1"
+"$(dirname "$0")/sync-save" --push

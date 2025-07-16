@@ -1,0 +1,45 @@
+#!/bin/bash
+
+CONFIG_FILE="$(dirname "$0")/sync-save.conf"
+
+# Load config file
+if [[ -f "$CONFIG_FILE" ]]; then
+    source "$CONFIG_FILE"
+else
+    zenity --error --text="Missing config file: $CONFIG_FILE" --title="No Config"
+    exit 1
+fi
+
+usage() {
+    echo "Usage: $0 --pull | --push"
+    exit 1
+}
+
+# Check if SSH port is open for file transfer
+check_connection() {
+    timeout 3 bash -c "</dev/tcp/$REMOTE_HOST/22" &>/dev/null
+}
+
+# Download saves from server
+pull_saves() {
+    if check_connection; then
+        rsync -au "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/" "$LOCAL_PATH/"
+    else
+        zenity --error --text="Unable to download save data. Server offline." --title="Sync Error"
+    fi
+}
+
+# Upload saves to server
+push_saves() {
+    if check_connection; then
+        rsync -au "$LOCAL_PATH/" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_PATH/"
+    else
+        zenity --error --text="Unable to upload save data. Server offline." --title="Sync Error"
+    fi
+}
+
+case "$1" in
+    --pull) pull_saves ;;
+    --push) push_saves ;;
+    *) usage ;;
+esac
