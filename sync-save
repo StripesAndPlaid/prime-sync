@@ -15,7 +15,7 @@ usage() {
     exit 1
 }
 
-# Check if SSH port is open for file transfer
+# Check if SSH connection can be established
 check_connection() {
     timeout 3 ssh -q -o BatchMode=yes -T "$REMOTE_USER@$REMOTE_HOST" exit &>/dev/null
 }
