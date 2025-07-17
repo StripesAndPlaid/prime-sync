@@ -17,7 +17,7 @@ usage() {
 
 # Check if SSH port is open for file transfer
 check_connection() {
-    timeout 3 bash -c "</dev/tcp/$REMOTE_HOST/22" &>/dev/null
+    timeout 3 ssh -q -o BatchMode=yes -T "$REMOTE_USER@$REMOTE_HOST" exit &>/dev/null
 }
 
 # Download saves from server
@@ -25,7 +25,7 @@ pull_saves() {
     if check_connection; then
         rsync -au "$REMOTE_USER@$REMOTE_HOST:$REMOTE_SAVE_PATH/" "$LOCAL_SAVE_PATH/"
     else
-        zenity --error --text="Unable to download save data. Server offline." --title="Sync Error"
+        zenity --error --text="Unable to download save data.\n\nCould not establish a secure connection to $REMOTE_HOST." --title="Sync Error"
     fi
 }
 
@@ -34,7 +34,7 @@ push_saves() {
     if check_connection; then
         rsync -au "$LOCAL_SAVE_PATH/" "$REMOTE_USER@$REMOTE_HOST:$REMOTE_SAVE_PATH/"
     else
-        zenity --error --text="Unable to upload save data. Server offline." --title="Sync Error"
+        zenity --error --text="Unable to upload save data.\n\nCould not establish a secure connection to $REMOTE_HOST." --title="Sync Error"
     fi
 }
 

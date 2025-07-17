@@ -55,7 +55,7 @@ prime-sync/
    REMOTE_SAVE_PATH=/home/$REMOTE_USER/metroid
    ```
 
-3. **(Optional) Set up SSH key auth for password-less sync (recommended):**
+3. **Set up SSH key authentication:**
 
    Generate a new `ed25519` key if you don’t already have one:
 
@@ -105,15 +105,9 @@ Or launch the game with save sync via the wrapper:
 "$(dirname "$0")/sync-save" --push
 ```
 
-## ❗ Notes
-
-- The script uses `/dev/tcp/$REMOTE_HOST/22` to check if your SSH server is reachable.
-- `rsync` uses `--update` to avoid overwriting newer local or remote saves.
-- Errors are shown via `zenity` if syncing fails — tested in both Desktop and Game Mode on SteamOS.
-
 ## ✅ Requirements
 
 - `rsync`
 - `bash`
 - `zenity`
-- SSH access to your server
+- SSH access to your server (via key pair)
